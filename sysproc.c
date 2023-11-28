@@ -8,6 +8,18 @@
 #include "proc.h"
 
 int
+sys_getyear(void)
+{
+  return 1975;
+}
+
+int
+sys_getmysize(void)
+{
+  return myproc()->sz;
+}
+
+int
 sys_fork(void)
 {
   return fork();
