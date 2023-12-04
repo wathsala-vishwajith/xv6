@@ -7,17 +7,8 @@
 #include "mmu.h"
 #include "proc.h"
 
-int
-sys_getyear(void)
-{
-  return 1975;
-}
 
-int
-sys_getmysize(void)
-{
-  return myproc()->sz;
-}
+
 
 int
 sys_fork(void)
@@ -100,4 +91,34 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+int sys_getkernelstartaddr(void){
+  return KERNBASE;
+}
+
+int sys_getkernelendaddr(void){
+  return KERNBASE+PHYSTOP;
+}
+
+int sys_getkernelvaraddr(void){
+  int a = 0;
+  // address &a
+  return  (int)&a;
+}
+
+int sys_getsystemcalladdr(void){
+  return (int)sys_fork;
+}
+
+int
+sys_getyear(void)
+{
+  return 1975;
+}
+
+int
+sys_getmysize(void)
+{
+  return myproc()->sz;
 }
