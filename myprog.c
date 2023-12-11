@@ -4,9 +4,14 @@
 
 int main(void)
 {
-printf (1, "start of kernel = %p \n", getkernelstartaddr ());
-printf (1, "end of kernel = %p \n", getkernelendaddr());
-printf (1, "addr of kernel variable = %p \n", getkernelvaraddr ());
-printf (1, "addr of fork sys call = %p \n", getsystemcalladdr());
+printf (1, "I ’m running with ordinary priority \n");
+printf (1, "setting priority to %d\n", setpriority (1));
+sleep (2);
+printf (1, "I ’m running with priority 1 \n");
+printf (1, "setting priority to %d\n", setpriority (2));
+sleep (2);
+// below line should never work
+printf (1, "I ’m running with priority 2 \n");
 exit () ;
 }
+

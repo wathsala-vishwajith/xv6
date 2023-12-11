@@ -122,3 +122,11 @@ sys_getmysize(void)
 {
   return myproc()->sz;
 }
+
+int sys_setpriority(void){
+  int a;
+  if(argint(0, &a) < 0)
+    return -1;
+  myproc()->priority = a;
+  return a;
+}
