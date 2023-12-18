@@ -442,3 +442,15 @@ sys_pipe(void)
   fd[1] = fd1;
   return 0;
 }
+
+int sys_getinodesize(void) {
+  char* path; 
+  struct inode* node; 
+  if(argstr(0, &path) < 0 ){
+    return -2;
+  }
+  if((node = namei(path) ) == 0){
+      return -1;
+  }
+    return node->size;
+}
