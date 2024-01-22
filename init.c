@@ -11,6 +11,7 @@ int
 main(void)
 {
   int pid, wpid;
+  int backid;
 
   if(open("console", O_RDWR) < 0){
     mknod("console", 1, 1);
@@ -18,6 +19,17 @@ main(void)
   }
   dup(0);  // stdout
   dup(0);  // stderr
+
+    backid = fork();
+    if(backid < 0){
+      printf(1, "init: fork failed\n");
+      exit();
+    }
+    if(backid == 0){
+      exec("myprog", argv);
+      printf(1, "init: exec sh failed\n");
+      exit();
+    }
 
   for(;;){
     printf(1, "init: starting sh\n");

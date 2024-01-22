@@ -4,7 +4,9 @@
 
 int main(void)
 {
-printf (1, "inode size %d\n", getinodesize("home/ucsc"));
-exit () ;
+printf (1, "Background process...");
+while(1){
+    sleep(5);
+}
 }
 
