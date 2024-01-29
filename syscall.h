@@ -28,3 +28,4 @@
 #define SYS_getsystemcalladdr 27
 #define SYS_setpriority 28
 #define SYS_getinodesize 29
+#define SYS_myps 30

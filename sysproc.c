@@ -10,6 +10,7 @@
 
 
 
+
 int
 sys_fork(void)
 {
@@ -129,4 +130,78 @@ int sys_setpriority(void){
     return -1;
   myproc()->priority = a;
   return a;
+}
+
+int
+sys_myps(void)
+{
+    char *copy;
+    char *s;
+    int copysize;
+    struct proc *pt;
+
+    if (argint(0, &copysize) <0){
+        return -1;
+    }
+
+
+    if (argptr(1, &copy,copysize) <0){
+        return -1;
+    }
+
+    struct proc *procCopy;
+
+    procCopy = procps();
+
+    
+
+    s=copy;
+
+
+    // while(pt + copysize > s){
+    //     *(int *)s = 1;
+    //     s+=4;
+    //     *(int *)s = 2;
+    //     s+=4;
+    // }
+    int  counter =0;
+    for(pt = procCopy; pt < &procCopy[NPROC]; pt++){
+      //  if(pt->state == UNUSED) {
+          // cprintf("%d %s", pt->sz, pt->name);
+          *(uint *)s = pt->sz;
+          s += sizeof(uint);
+
+          *(int *)s = pt->state;
+          s += sizeof(int);
+
+          *(int *)s=pt->pid;
+          s+=sizeof(int);
+
+          strncpy(s, pt->parent->name, 16);
+          s += (sizeof(char)) * 16;
+
+          *(int *)s=pt->parent->pid;
+           s+=sizeof(int);
+
+          *(int *)s=pt->killed;
+           s+=sizeof(int);
+
+          // *(uint *)s=pt->cwd->inum;
+          //  s+=sizeof(uint);
+
+          //  *(int *)s=*(pt->cwd)->inum;
+          //  *(uint *)s=01010;
+          //  s+=sizeof(int);
+
+
+          strncpy(s, pt->name, 16);
+          s += (sizeof(char)) * 16;
+
+          counter++;
+          if(counter>5) break;
+      //  }
+      
+    }
+
+    return 1;
 }

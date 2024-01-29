@@ -31,6 +31,7 @@ int getkernelvaraddr(void);
 int getsystemcalladdr(void);
 int setpriority(int);
 int getinodesize(char *);
+int myps(int,void*);
 
 // ulib.c
 int stat(const char*, struct stat*);
